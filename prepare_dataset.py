@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 
 from sklearn.preprocessing import LabelEncoder
 label_encoder = LabelEncoder()
@@ -16,7 +15,7 @@ datasets = [ train, test ]
 
 
 # Fill Nulls
-for dataset in datasets:    
+for dataset in datasets:
     #complete missing age with median
     dataset['Age'].fillna(dataset['Age'].median(), inplace = True)
 
@@ -49,6 +48,8 @@ train.info()
 
 # split independent and dependent features
 X_train = train.drop([ 'Survived' ], axis = 1)
+print(type(X_train))
+
 y_train = train['Survived']
 
 X_test = test
@@ -58,9 +59,8 @@ X_test = test
 X_train = standard_scaler.fit_transform(X_train)
 X_test = standard_scaler.transform(X_train)
 
-X_train.info()
+#X_train.info()
 #for dataset in [ X_train, X_test ]:
  #   dataset.info()
 
 # save as csv
-
