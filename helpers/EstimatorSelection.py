@@ -3,7 +3,7 @@ import numpy as np
 
 from sklearn.model_selection import GridSearchCV
 
-class EstimatorSelectionHelper:
+class EstimatorSelection:
 
     def __init__(self, models, params):
         if not set(models.keys()).issubset(set(params.keys())):
@@ -23,7 +23,7 @@ class EstimatorSelectionHelper:
                               verbose=verbose, scoring=scoring, refit=refit,
                               return_train_score=True)
             gs.fit(X,y)
-            self.grid_searches[key] = gs    
+            self.grid_searches[key] = gs
 
     def score_summary(self, sort_by='mean_score'):
         def row(key, scores, params):
@@ -43,7 +43,7 @@ class EstimatorSelectionHelper:
             scores = []
             for i in range(self.grid_searches[k].cv):
                 key = "split{}_test_score".format(i)
-                r = self.grid_searches[k].cv_results_[key]        
+                r = self.grid_searches[k].cv_results_[key]
                 scores.append(r.reshape(len(params),1))
 
             all_scores = np.hstack(scores)
