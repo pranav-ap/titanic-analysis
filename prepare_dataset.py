@@ -38,29 +38,32 @@ columns_to_drop = ['SibSp', 'Parch']
 
 for dataset in datasets:
     dataset.drop(columns_to_drop, axis = 1, inplace = True)
- 
+
+
 # encode gender
 for dataset in datasets:
     dataset[ 'Sex' ] = label_encoder.fit_transform(dataset[ 'Sex' ])
 
 
-train.info()
-
 # split independent and dependent features
 X_train = train.drop([ 'Survived' ], axis = 1)
-print(type(X_train))
 
 y_train = train['Survived']
-
 X_test = test
 
 
 # scale the features
-X_train = standard_scaler.fit_transform(X_train)
-X_test = standard_scaler.transform(X_train)
+X_train = pd.DataFrame(standard_scaler.fit_transform(X_train))
+X_test = pd.DataFrame(standard_scaler.transform(X_test))
 
-#X_train.info()
-#for dataset in [ X_train, X_test ]:
- #   dataset.info()
+
+print('--- Prepared datasets info ---')
+for dataset in [ X_train, X_test ]:
+    print()
+    dataset.info()
+
 
 # save as csv
+X_train.to_csv('./data/prepared_X_train.csv')
+y_train.to_csv('./data/prepared_y_train.csv')
+X_test.to_csv('./data/prepared_X_test.csv')
