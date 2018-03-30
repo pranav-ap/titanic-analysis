@@ -64,8 +64,8 @@ for dataset in [ X_train, X_test ]:
 
 
 # save as csv
-X_train.to_csv('./data/prepared_X_train.csv')
-y_train.to_csv('./data/prepared_y_train.csv')
-X_test.to_csv('./data/prepared_X_test.csv')
+X_train.to_csv('./data/prepared_X_train.csv', index = False)
+y_train.to_csv('./data/prepared_y_train.csv', index = False, header = True)
+X_test.to_csv('./data/prepared_X_test.csv', index = False)
 
 print('\n --- Data is prepared ---')

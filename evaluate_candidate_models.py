@@ -31,7 +31,7 @@ candidate_params = {
 
 from helpers import EstimatorSelection
 estimator_selection = EstimatorSelection(candidate_models, candidate_params)
-estimator_selection.fit(X_train, y_train, scoring = 'f1', n_jobs = 2)
+estimator_selection.fit(X_train, y_train, scoring = 'f1', n_jobs = -1)
 
 
 estimator_selection.score_summary(sort_by = 'max_score')
