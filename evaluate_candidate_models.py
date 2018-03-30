@@ -1,8 +1,8 @@
 import pandas as pd
 
 # get my prepared dataset
-X_training = pd.read_csv('./data/prepared_X_train.csv')
-y_training = pd.read_csv('./data/prepared_y_train.csv')
+X_train = pd.read_csv('./data/prepared_X_train.csv', index_col = False)
+y_train = pd.read_csv('./data/prepared_y_train.csv', index_col = False)
 
 
 # import candidate models and create the 2 dictionaries
@@ -17,6 +17,7 @@ svc_params = [
   { 'kernel': ['rbf'], 'C': [1, 10], 'gamma': [0.001, 0.0001] }
 ]
 
+
 candidate_models = {
   'RandomForestClassifier': RandomForestClassifier(),
   'SVC': SVC()
@@ -29,6 +30,8 @@ candidate_params = {
 
 
 from helpers import EstimatorSelection
-estimator_selection = EstimatorSelection()
+estimator_selection = EstimatorSelection(candidate_models, candidate_params)
+estimator_selection.fit(X_train, y_train, scoring = 'f1', n_jobs = 2)
 
-# fit and find
+
+estimator_selection.score_summary(sort_by = 'max_score')
