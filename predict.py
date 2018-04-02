@@ -21,8 +21,8 @@ y_pred = pd.DataFrame(y_pred)
 
 submission = pd.DataFrame({
   'PassengerId': PassengerId,
-  'Survived': y_pred
+  'Survived': y_pred[0]
 })
 
-y_pred.to_csv('./data/submission.csv', index = False, header = True)
+submission.to_csv('./data/submission.csv', index = False, header = True)
 
