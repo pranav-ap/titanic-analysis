@@ -8,6 +8,15 @@ y_train = y_train['Survived']
 candidates = {}
 
 # create candidates
+from sklearn.tree import DecisionTreeClassifier
+classifier = DecisionTreeClassifier()
+candidates['DecisionTreeClassifier'] = {
+  'classifier': DecisionTreeClassifier(),
+  'params': { 
+    'criterion': ['entropy']
+  }
+}
+
 from sklearn.ensemble import RandomForestClassifier
 candidates['RandomForestClassifier'] = {
   'classifier': RandomForestClassifier(),
@@ -20,17 +29,31 @@ from sklearn.svm import SVC
 candidates['SVC'] = {
   'classifier': SVC(),
   'params': { 
-    'kernel': ['linear'], 
-    'C': [1] 
+    'kernel': ['rbf', 'poly'], 
+    'C': [3, 4, 5, 6, 7] 
   }
+}
+
+from sklearn.neighbors import KNeighborsClassifier
+candidates['KNeighborsClassifier'] = {
+  'classifier': KNeighborsClassifier(),
+  'params': { 
+    'n_neighbors': [4, 5, 6], 
+    'metric': ['minkowski'], 
+    'p': [1, 2, 3, 4]
+  }
+}
+
+from sklearn.naive_bayes import GaussianNB
+candidates['GaussianNB'] = {
+  'classifier': GaussianNB(),
+  'params': {  }
 }
 
 # Applying Grid Search to find the best model and the best parameters
 from sklearn.model_selection import GridSearchCV
 
 for candidate in candidates:
-  print(candidates[candidate]['params'])
-
   grid_search = GridSearchCV(
                   estimator = candidates[candidate]['classifier'], 
                   param_grid = candidates[candidate]['params'],
