@@ -12,7 +12,7 @@ from sklearn.tree import DecisionTreeClassifier
 classifier = DecisionTreeClassifier()
 candidates['DecisionTreeClassifier'] = {
   'classifier': DecisionTreeClassifier(),
-  'params': { 
+  'params': {
     'criterion': ['entropy']
   }
 }
@@ -20,26 +20,26 @@ candidates['DecisionTreeClassifier'] = {
 from sklearn.ensemble import RandomForestClassifier
 candidates['RandomForestClassifier'] = {
   'classifier': RandomForestClassifier(),
-  'params': { 
-    'n_estimators': [16] 
+  'params': {
+    'n_estimators': [16]
   }
 }
 
 from sklearn.svm import SVC
 candidates['SVC'] = {
   'classifier': SVC(),
-  'params': { 
-    'kernel': ['rbf', 'poly'], 
-    'C': [3, 4, 5, 6, 7] 
+  'params': {
+    'kernel': ['rbf', 'poly'],
+    'C': [3, 4, 5, 6, 7]
   }
 }
 
 from sklearn.neighbors import KNeighborsClassifier
 candidates['KNeighborsClassifier'] = {
   'classifier': KNeighborsClassifier(),
-  'params': { 
-    'n_neighbors': [4, 5, 6], 
-    'metric': ['minkowski'], 
+  'params': {
+    'n_neighbors': [4, 5, 6],
+    'metric': ['minkowski'],
     'p': [1, 2, 3, 4]
   }
 }
@@ -55,12 +55,12 @@ from sklearn.model_selection import GridSearchCV
 
 for candidate in candidates:
   grid_search = GridSearchCV(
-                  estimator = candidates[candidate]['classifier'], 
+                  estimator = candidates[candidate]['classifier'],
                   param_grid = candidates[candidate]['params'],
-                  scoring = 'f1', 
-                  cv = 10, 
+                  scoring = 'f1',
+                  cv = 10,
                   n_jobs = 1)
-  
+
   grid_search = grid_search.fit(X_train, y_train)
   print('best_accuracy = ')
   print(grid_search.best_score_)
